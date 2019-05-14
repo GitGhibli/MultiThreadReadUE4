@@ -1492,10 +1492,6 @@ class VICTORYBPLIBRARY_API UVictoryBPFunctionLibrary : public UBlueprintFunction
 	UFUNCTION(BlueprintPure, meta = (DisplayName = "Victory BP Library|String", Keywords = "split explode string"), Category = String)
 	static void String__ExplodeString(TArray<FString>& OutputStrings, FString InputString, FString Separator = ",", int32 limit = 0, bool bTrimElements = false);
 
-	/** Load a Texture 2D from a DDS file! On Thread Pool*/
-	UFUNCTION(BlueprintCallable, Category = "Victory BP Library|Load Texture From File on thread pool", meta = (Keywords = "image DDS thread"))
-	static UTexture2D* LoadTexture2D_FromDDSFile_ThreadPool(const FString& FullFilePath);
-
 	//NOT QUITE WORKING, REQUIRES INVESTIGATION
 	/** Load a Texture 2D from a DDS file! Contributed by UE4 forum member n00854180t! */
 	UFUNCTION(BlueprintCallable, Category = "Victory BP Library|Load Texture From File",meta=(Keywords="image DDS"))

@@ -5,31 +5,24 @@
 #include "VictoryBPLibrary.h"
 #include "VictoryReadDDSAsync.h"
 
-UVictoryReadDDSAsync * UVictoryReadDDSAsync::ReadDDSTexturesAsync(const UObject * WorldContextObject, const FString PathToFileInput)
+UVictoryReadDDSAsync * UVictoryReadDDSAsync::ReadDDSTexturesAsync(const UObject * WorldContextObject, TArray<FString> PathsToFilesInput)
 {
 	auto blueprintNode = NewObject<UVictoryReadDDSAsync>();
 	blueprintNode->WorldContextObject = WorldContextObject;
-	blueprintNode->PathToFile = PathToFileInput;
+	blueprintNode->PathsToFiles = PathsToFilesInput;
 	return blueprintNode;
 }
 
 void UVictoryReadDDSAsync::Activate()
 {
-	Future = Async<void>(EAsyncExecution::ThreadPool, [&]
+	TFuture<void> future = Async<void>(EAsyncExecution::ThreadPool, [&]
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Inside Lambda function"));
-
 		Texture = nullptr;
-		for (int i = 0; i < 5; i++) {
-			Texture = UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(PathToFile);
+		for (auto path : PathsToFiles) {
+			Texture = UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(path);
 		}
-
-		Result = 9027;
-
-		UE_LOG(LogTemp, Warning, TEXT("For Loop Ended"));
 	},
 		[&] {
-		UE_LOG(LogTemp, Warning, TEXT("Callback Function called"));
 		OnTexturesReady.Broadcast(Texture);
 	});
 }

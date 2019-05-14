@@ -4021,36 +4021,10 @@ void UVictoryBPFunctionLibrary::String__ExplodeString(TArray<FString>& OutputStr
 	}
 }
 
-UTexture2D* UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile_ThreadPool(const FString& FullFilePath) {
-	TFuture<UTexture2D*> future = Async<UTexture2D*>(EAsyncExecution::ThreadPool, [FullFilePath]
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Inside Lambda function"));
-		
-		UTexture2D* texture = nullptr;
-		for (int i = 0; i < 5; i++) {
-			 texture = UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(FullFilePath);
-		}
-
-		UE_LOG(LogTemp, Warning, TEXT("For Loop Ended"));
-
-		return 	texture;
-	});
-
-	//auto result = future.Get();
-	
-	UE_LOG(LogTemp, Warning, TEXT("About to wait for loop to end"));
-	future.Wait();
-	UE_LOG(LogTemp, Warning, TEXT("Waiting ended"));
-
-	return future.Get();
-}
-
-
 UTexture2D* UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(const FString& FullFilePath)
 {
-	FPlatformProcess::Sleep(2);
-
-	UE_LOG(LogTemp, Warning, TEXT("Inside Victory function"));
+	//TODO MG Remove sleep
+	FPlatformProcess::Sleep(1);
 
 	UTexture2D* Texture = NULL;
 

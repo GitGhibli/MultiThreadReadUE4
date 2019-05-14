@@ -17,16 +17,15 @@ class VICTORYBPLIBRARY_API UVictoryReadDDSAsync : public UBlueprintAsyncActionBa
 	FTexturesReady OnTexturesReady;
 
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", WorldContext = "WorldContextObject"), Category = "Flow Control")
-	static UVictoryReadDDSAsync* ReadDDSTexturesAsync(const UObject* WorldContextObject, const FString PathToFileInput);
+	static UVictoryReadDDSAsync* ReadDDSTexturesAsync(const UObject* WorldContextObject, TArray<FString> PathToFileInput);
 
 	virtual void Activate() override;
 
 private:
-
-	void BroadCastTexture();
+	//Output value
 	UTexture2D* Texture;
-	TFuture<void> Future;
-	int Result;
+
+	//Input values
 	const UObject* WorldContextObject;
-	FString PathToFile;
+	TArray<FString> PathsToFiles;
 };
