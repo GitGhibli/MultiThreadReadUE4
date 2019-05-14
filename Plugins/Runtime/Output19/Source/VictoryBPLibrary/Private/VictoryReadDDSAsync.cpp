@@ -15,7 +15,7 @@ UVictoryReadDDSAsync * UVictoryReadDDSAsync::ReadDDSTexturesAsync(const UObject 
 
 void UVictoryReadDDSAsync::Activate()
 {
-	Future = Async<void>(EAsyncExecution::TaskGraph, [&]
+	Future = Async<void>(EAsyncExecution::ThreadPool, [&]
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Inside Lambda function"));
 
