@@ -6,7 +6,7 @@
 #include "Kismet/BlueprintAsyncActionBase.h"
 #include "VictoryReadDDSAsync.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTexturesReady, UTexture2D*, Result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTexturesReady, const TArray<UTexture2D*>&, Result);
 
 UCLASS()
 class VICTORYBPLIBRARY_API UVictoryReadDDSAsync : public UBlueprintAsyncActionBase
@@ -23,7 +23,7 @@ class VICTORYBPLIBRARY_API UVictoryReadDDSAsync : public UBlueprintAsyncActionBa
 
 private:
 	//Output value
-	UTexture2D* Texture;
+	TArray<UTexture2D*> ResultTextures;
 
 	//Input values
 	const UObject* WorldContextObject;

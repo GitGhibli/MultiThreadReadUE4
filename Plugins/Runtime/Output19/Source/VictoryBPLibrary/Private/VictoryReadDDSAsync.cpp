@@ -2,7 +2,7 @@
 
 #include "VictoryBPLibraryPrivatePCH.h"
 
-#include "VictoryBPLibrary.h"
+#include "VictoryBPFunctionLibrary.h"
 #include "VictoryReadDDSAsync.h"
 
 UVictoryReadDDSAsync * UVictoryReadDDSAsync::ReadDDSTexturesAsync(const UObject * WorldContextObject, TArray<FString> PathsToFilesInput)
@@ -17,12 +17,11 @@ void UVictoryReadDDSAsync::Activate()
 {
 	TFuture<void> future = Async<void>(EAsyncExecution::ThreadPool, [&]
 	{
-		Texture = nullptr;
 		for (auto path : PathsToFiles) {
-			Texture = UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(path);
+			ResultTextures.Add(UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(path));
 		}
 	},
 		[&] {
-		OnTexturesReady.Broadcast(Texture);
+		OnTexturesReady.Broadcast(ResultTextures);
 	});
 }
