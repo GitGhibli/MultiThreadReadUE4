@@ -4023,9 +4023,6 @@ void UVictoryBPFunctionLibrary::String__ExplodeString(TArray<FString>& OutputStr
 
 UTexture2D* UVictoryBPFunctionLibrary::LoadTexture2D_FromDDSFile(const FString& FullFilePath)
 {
-	//TODO MG Remove sleep
-	FPlatformProcess::Sleep(1);
-
 	UTexture2D* Texture = NULL;
 
 	FString TexturePath = FullFilePath;//FPaths::GameContentDir( ) + TEXT( "../Data/" ) + TextureFilename;
